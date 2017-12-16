@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import Home from '../home/Home';
-import style from './style.css';
+import Banner from '../../components/banner/Banner';
 
 class Front extends Component{
   constructor(props){
@@ -10,21 +10,18 @@ class Front extends Component{
 
   render(){
   	const {url} = this.props.match;
-    console.log('url:' + url)
   	return(
-  	  <Router>
+  	  <div>
   	  	<div>
-  	  	  <div>
-  	  	    <h1 className={style.red}>Front</h1>
-  	  	  </div>
-  	  	  <div>
-  	  	    <Switch>
-  	  	      <Route exact path={url} component={Home} />
-  	  	      <Route path={`/:tag`} component={Home} />
-  	  	    </Switch>
-  	  	  </div>
+  	  	  <Banner />
   	  	</div>
-  	  </Router>
+  	  	<div>
+  	  	  <Switch>
+  	  	    <Route exact path={url} component={Home} />
+  	  	    <Route path={"/:tag"} component={Home} />
+  	  	  </Switch>
+  	  	</div>
+  	  </div>
   	)
   }
 }
