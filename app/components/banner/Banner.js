@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
-import {Carousel} from 'react-bootstrap';
+import {Carousel} from 'antd';
+import style from './style.css';
+
+const banner_1 = require("./images/banner_1.png");
+const banner_2 = require("./images/banner_2.png");
+const banner_3 = require("./images/banner_3.png");
 
 class Banner extends Component{
 	constructor(props){
@@ -8,22 +13,11 @@ class Banner extends Component{
 
 	render(){
 		return(
-	    <Carousel>
-        <Carousel.Item>
-          <img width={900} height={500} alt="轮播图一" src="./images/banner_1.jpg" />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img width={900} height={500} alt="轮播图二" src="./images/banner_2.jpg" />
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+	    	<Carousel autoplay effect="fade">
+        		<div key='benner_1' className={style.carouselImgContainer}><img src={'http://localhost:8080' + banner_1} alt={'轮播图一'}/></div>
+        		<div key='banner_2' className={style.carouselImgContainer}><img src={'http://localhost:8080' + banner_2} alt={'轮播图二'}/></div>
+        		<div key='banner_3' className={style.carouselImgContainer}><img src={'http://localhost:8080' + banner_3} alt={'轮播图三'}/></div>
+      		</Carousel>
 		)
 	}
 }
