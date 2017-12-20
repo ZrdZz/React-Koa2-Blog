@@ -4,7 +4,11 @@ import Home from '../home/Home';
 import Banner from '../../components/banner/Banner';
 import Menu from '../../components/menu/Menu';
 import style from './style.css';
-import Logorreg from '../logorreg/Logorreg';
+import Logorreg from '../../components/logorreg/Logorreg';
+import Logined from '../../components/logined/Logined';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {actions} from '../../reducers/index';
 
 class Front extends Component{
   constructor(props){
@@ -27,7 +31,9 @@ class Front extends Component{
   	  	    </Switch>
           </div>
           <div className={style.logorreg}>
-            <Logorreg />
+            {this.props.userInfo.userId ? <Logined userInfo={this.props.userInfo} /> :
+                                          <Logorreg login={this.props.login} register={this.props.register}/>
+            }
           </div>
   	  	</div>
   	  </div>
@@ -35,4 +41,11 @@ class Front extends Component{
   }
 }
 
-export default Front
+function mapDispatchToProps(dispatch){
+  return{
+    login: bindActionCreators(actions.user_login, dispatch),
+    register: bindActionCreators(actions.user_register, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Front);

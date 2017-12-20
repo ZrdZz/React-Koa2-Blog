@@ -30,7 +30,10 @@
     "file-loader": "^1.1.6",
     "koa-static": "^4.0.2",
     "postcss-loader": "^2.0.9",
+    "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-saga": "^0.16.0",
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
@@ -39,8 +42,12 @@
   "dependencies": {
     "antd": "^3.0.1",
     "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.3.0",
     "koa2-connect-history-api-fallback": "0.0.6",
+    "mongoose": "^4.13.7",
     "react": "^16.2.0",
+    "react-addons-pure-render-mixin": "^15.6.2",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.2.0"
   }
