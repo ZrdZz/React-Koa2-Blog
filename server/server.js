@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const Router = require('koa-router');
 const body = require('koa-bodyparser');
 const user = require('./api/user');
+const session = require('koa-session2');
 
 const app = new Koa();
 const router = new Router();
@@ -14,6 +15,10 @@ app.use(historyApiFallback());  //必须放在前面
 app.use(koaStatic(path.join(__dirname, "..", 'public')));
 app.use(koaStatic(path.join(__dirname, "..", 'build')));
 app.use(body());
+app.use(session({
+	key: "SESSIONID",
+	maxAge: 1000 * 60 * 60
+}))
 
 router.use('/', user.routes(), user.allowedMethods());
 

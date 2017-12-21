@@ -26,6 +26,7 @@ user.post('user/login', async(ctx) => {
             	data.username = doc.username;
             	data.userType = doc.type;
             	data.userId = doc._id;
+                ctx.session.userInfo = data;
 
             	responseClient(ctx, 200, 0, '登录成功', data);
             	return;    		
@@ -89,6 +90,14 @@ user.post('user/register', async(ctx) => {
         })
     }catch(e){
         responseClient(ctx);
+    }
+})
+
+user.get('user/userInfo', async(ctx) => {  
+    if(ctx.session.userInfo){
+        responseClient(ctx, 200, 0, '已登录', ctx.session.userInfo);
+    }else{
+        responseClient(ctx,200,1,'请重新登录',ctx.session.userInfo);
     }
 })
 

@@ -41,13 +41,16 @@
   },
   "dependencies": {
     "antd": "^3.0.1",
+    "axios": "^0.17.1",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.3.0",
+    "koa-session-minimal": "^3.0.4",
+    "koa-session2": "^2.2.5",
     "koa2-connect-history-api-fallback": "0.0.6",
     "mongoose": "^4.13.7",
+    "qs": "^6.5.1",
     "react": "^16.2.0",
-    "react-addons-pure-render-mixin": "^15.6.2",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.2.0"
   }

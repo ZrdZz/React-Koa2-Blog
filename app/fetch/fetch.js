@@ -1,20 +1,39 @@
-export function post(url, data){
-	const init = {
-		method: 'post',
-		body: JSON.stringify(data),
-		headers: {'Content-Type': 'application/json'},
-		credentials: 'include'
-	}
+import axios from 'axios'
+import Qs from 'qs'
 
-	return fetch(url, init)           //这里一定要返回
-		.then(function(res){
-			return res.json()
-		})
-		.then(function(res){
-			return res;
-		})
-		.catch(function(err){
-			console.log(err);
-		})
+let config = {
+    baseURL: '/',
+    transformRequest: [
+        function (data) {
+            let ret = '';
+            for (let it in data) {
+                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+        }
+    ],
+    transformResponse: [
+        function (data) {
+            return data
+        }
+    ],
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    },
+    timeout: 10000,
+    responseType: 'json'
+};
+
+axios.interceptors.response.use(function(res){
+    //相应拦截器
+    return res.data;
+});
+
+
+export function get(url) {
+    return axios.get(url, config)
 }
 
+export function post(url, data) {
+    return axios.post(url, data, config)
+}

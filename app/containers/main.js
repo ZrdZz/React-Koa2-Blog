@@ -50,6 +50,10 @@ class Main extends Component{
       }
     }
   }
+
+  componentDidMount(){
+    this.props.user_auth();   
+  }
 }
 
 function mapStateToProps(state) {
@@ -61,7 +65,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        clear_msg: bindActionCreators(actions.clear_msg, dispatch)
+        clear_msg: bindActionCreators(actions.clear_msg, dispatch),
+        user_auth: bindActionCreators(actions.user_auth, dispatch)
     }
 }
 

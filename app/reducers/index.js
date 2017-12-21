@@ -15,7 +15,8 @@ export const actionsTypes = {
 	USER_LOGIN: "USER_LOGIN",
 	USER_REGISTER: "USER_REGISTER",
 	SET_MESSAGE: "SET_MESSAGE",
-	RESPONSE_USER_INFO: "RESPONSE_USER_INFO"
+	RESPONSE_USER_INFO: "RESPONSE_USER_INFO",
+	USER_AUTH: "USER_AUTH"  //自动登录
 };
 
 export const actions = {
@@ -32,12 +33,17 @@ export const actions = {
 			data
 		}
 	},
-    clear_msg: function () {
-        return {
+    clear_msg: function(){
+        return{
             type: actionsTypes.SET_MESSAGE,
             msgType: 0,
             msgContent: ''
         }
+    },
+    user_auth: function(){
+    	return{
+    		type: actionsTypes.USER_AUTH
+    	}
     }
 };
 
