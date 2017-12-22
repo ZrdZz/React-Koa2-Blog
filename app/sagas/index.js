@@ -1,4 +1,4 @@
-import {fork} from 'redux-saga/effects'
+import {fork} from 'redux-saga/effects';
 import {watchLogin, watchRegister, userAuth} from './logOrRegSaga';
 
 export default function* rootSaga(){

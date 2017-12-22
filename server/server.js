@@ -30,7 +30,7 @@ mongoose.connect('mongodb://localhost/blog', function(err){
 		console.log('数据库连接失败');
 	}else{
 		console.log('数据库连接成功');
-		app.listen(3000);
+		app.listen(8000);
 	}
 })
 

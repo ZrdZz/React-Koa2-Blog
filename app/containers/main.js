@@ -21,6 +21,7 @@ class Main extends Component{
     let that = this;
     notification[type]({
       message: message,
+      duration: 1,
       onClose: () => {
         that.props.clear_msg();
       }

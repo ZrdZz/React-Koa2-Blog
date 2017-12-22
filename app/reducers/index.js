@@ -3,7 +3,7 @@ import {combineReducers} from 'redux';
 const initialState = {
 	isFetching: false,  
 	msg: {
-		type: 0,        //0失败,1成功
+		type: 1,        //0失败,1成功
 		content: ''
 	},
 	userInfo: {}
@@ -36,7 +36,7 @@ export const actions = {
     clear_msg: function(){
         return{
             type: actionsTypes.SET_MESSAGE,
-            msgType: 0,
+            msgType: 1,
             msgContent: ''
         }
     },

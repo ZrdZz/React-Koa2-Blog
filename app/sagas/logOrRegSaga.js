@@ -16,7 +16,7 @@ export function* watchLogin(){
 export function* login(username, password){
 	yield put({type: actionsTypes.FETCH_START});
 	try{
-		return yield call(post, 'user/login', {username, password});
+		return yield call(post, '/user/login', {username, password});
 	}catch(err){
 		yield put({type: actionsTypes.SET_MESSAGE, msgType: 0, msgContent: '用户名或密码错误'});
 	}finally{
@@ -26,12 +26,11 @@ export function* login(username, password){
 
 export function* watchRegister(){
 	while(true){
-		let req = yield take(actionsTypes.USER_REGISTER);                                     
+		let req = yield take(actionsTypes.USER_REGISTER);                                    
 		let res = yield call(register, req.data);
 		if(res && res.code === 0){
 			yield put({type: actionsTypes.SET_MESSAGE, msgType: 1, msgContent: '注册成功'});           
-		}else{
-			yield put({type: actionsTypes.SET_MESSAGE, msgType: 0, msgContent: '用户名已存在'});
+			yield put({type: actionsTypes.RESPONSE_USER_INFO, data: res.data});
 		}
 	}	
 }
@@ -39,7 +38,7 @@ export function* watchRegister(){
 export function* register(data){
 	yield put({type: actionsTypes.FETCH_START});
 	try{
-		return yield call(post, 'user/register', data);
+		return yield call(post, '/user/register', data);
 	}catch(err) {
 		yield put({type: actionsTypes.SET_MESSAGE, msgType: 0, msgContent: '注册失败'});
 	}finally{
@@ -52,7 +51,7 @@ export function* userAuth(){
 		yield take(actionsTypes.USER_AUTH);
 		try{
 			yield put({type: actionsTypes.FETCH_START});
-			let res = yield call(get, 'user/userInfo');
+			let res = yield call(get, '/user/userInfo');
 			if(res && res.code === 0){
 				yield put({type: actionsTypes.RESPONSE_USER_INFO, data: res.data});
 			}
