@@ -87,5 +87,79 @@ componentDidUpdate(){
 
 注册功能类似
 
+### 自动登录
+
+自动登录使用`koa-session2`中间件
+
+后端部分
+
+```
+app.use(session({
+	key: "SESSIONID",
+	maxAge: 1000 * 60 * 60
+}))
+```
+第一次登陆成功以后设置session
+```
+user.post('user/login', async(ctx) => {
+	let {username, password} = ctx.request.body;
+    if (!username) {
+        responseClient(ctx, 400, 2, '用户名不可为空');
+        return;
+    }
+    if (!password) {
+        responseClient(ctx, 400, 2, '密码不可为空');
+        return;
+    }
+
+ 	try{
+   		await User.findOne({username, password}, function(err, doc){
+    		if(err){
+    			responseClient(ctx);
+    		}
+
+    		if(doc){
+				let data = {};
+            	data.username = doc.username;
+            	data.userType = doc.type;
+            	data.userId = doc._id;
+                //登陆成功设置session
+                ctx.session.userInfo = data;
+
+            	responseClient(ctx, 200, 0, '登录成功', data);
+            	return;    		
+    		}
+
+    		responseClient(ctx, 400, 1, '用户名或密码错误');
+    	})
+ 	}catch(e){
+ 		responseClient(ctx);
+ 	}
+
+})
+```
+
+当下一次打开网站时发送请求验证是否已登录
+```
+user.get('user/userInfo', async(ctx) => {  
+    if(ctx.session.userInfo){
+        responseClient(ctx, 200, 0, '已登录', ctx.session.userInfo);
+    }else{
+        responseClient(ctx,200,1,'请重新登录',ctx.session.userInfo);
+    }
+})
+```
+
+前端部分
+
+当主页(/app/containers/main.js)加载完成后发送请求
+```
+  componentDidMount(){
+    this.props.user_auth();   
+  }
+```
+
+
+
 
 
