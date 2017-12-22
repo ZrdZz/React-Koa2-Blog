@@ -85,7 +85,7 @@ componentDidUpdate(){
 }
 ```
 
-注册功能类似
+注册功能类似(这里有bug,注册有时候会失败。。。然而现在找不出问题)
 
 ### 自动登录
 
@@ -102,7 +102,7 @@ app.use(session({
 第一次登陆成功以后设置session
 ```
 user.post('user/login', async(ctx) => {
-	let {username, password} = ctx.request.body;
+    let {username, password} = ctx.request.body;
     if (!username) {
         responseClient(ctx, 400, 2, '用户名不可为空');
         return;
@@ -111,31 +111,26 @@ user.post('user/login', async(ctx) => {
         responseClient(ctx, 400, 2, '密码不可为空');
         return;
     }
-
- 	try{
-   		await User.findOne({username, password}, function(err, doc){
-    		if(err){
-    			responseClient(ctx);
-    		}
-
-    		if(doc){
-				let data = {};
-            	data.username = doc.username;
-            	data.userType = doc.type;
-            	data.userId = doc._id;
-                //登陆成功设置session
-                ctx.session.userInfo = data;
-
-            	responseClient(ctx, 200, 0, '登录成功', data);
-            	return;    		
-    		}
-
-    		responseClient(ctx, 400, 1, '用户名或密码错误');
-    	})
- 	}catch(e){
- 		responseClient(ctx);
- 	}
-
+    try{
+   	await User.findOne({username, password}, function(err, doc){
+              if(err){
+    		   responseClient(ctx);
+    	      }
+	      if(doc){
+		   let data = {};
+            	   data.username = doc.username;
+            	   data.userType = doc.type;
+            	   data.userId = doc._id;
+                   //登陆成功设置session
+                   ctx.session.userInfo = data;
+                   responseClient(ctx, 200, 0, '登录成功', data);
+            	   return;    		
+    	      }
+	      responseClient(ctx, 400, 1, '用户名或密码错误');
+       })
+    }catch(e){
+ 	  responseClient(ctx);
+    }
 })
 ```
 
