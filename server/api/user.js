@@ -26,6 +26,7 @@ user.post('user/login', async(ctx) => {
             	data.username = doc.username;
             	data.userType = doc.type;
             	data.userId = doc._id;
+                //登陆成功设置session
                 ctx.session.userInfo = data;
 
             	responseClient(ctx, 200, 0, '登录成功', data);
@@ -87,72 +88,9 @@ user.post('user/register', async(ctx) => {
                 });   
             }
         })
-
-    // try{
-    //     await new Promise(function(resolve,reject){
-    //         User.findOne({username, username}, function(err, doc){
-    //             if(err){
-    //                 reject(err);
-    //             }
-
-    //             if(doc){
-    //                 responseClient(ctx, 200, 1, '用户名已存在');
-    //                 resolve();
-    //             }else{
-    //                 //保存到数据库
-    //                 let user = new User({
-    //                     username: username,
-    //                     password: password,
-    //                     type: 'user'
-    //                 });
-    //                 user.save(function(err, doc){
-    //                     if(err){
-    //                         console.log(err);
-    //                         reject(err);
-    //                     }
-    //                     if(doc){
-    //                         let data = {};
-    //                         data.username = doc.username;
-    //                         data.userType = doc.type;
-    //                         data.userId = doc._id;
-    //                         responseClient(ctx, 200, 0, '注册成功', data);
-    //                         return;
-    //                     }               
-    //                 })
-    //             }
-    //         })
-    //     })
     }catch(e){
         responseClient(ctx);
     }
-    //     //验证用户是否已经在数据库中
-    // User.findOne({username})
-    //     .then(data => {
-    //         if (data) {
-    //             responseClient(ctx, 200, 1, '用户名已存在');
-    //             return;
-    //         }
-    //         //保存到数据库
-    //         let user = new User({
-    //             username: userName,
-    //             password: password,
-    //             type: 'user'
-    //         });
-    //         user.save()
-    //             .then(function () {
-    //                 User.findOne({username: userName})
-    //                     .then(userInfo=>{
-    //                         let data = {};
-    //                         data.username = userInfo.username;
-    //                         data.userType = userInfo.type;
-    //                         data.userId = userInfo._id;
-    //                         responseClient(ctx, 200, 0, '注册成功', data);
-    //                         return;
-    //                     });
-    //             })
-    //     }).catch(err => {
-    //         responseClient(ctx);
-    // });
 })
 
 user.get('user/userInfo', async(ctx) => {  

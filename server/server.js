@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const Router = require('koa-router');
 const body = require('koa-bodyparser');
 const user = require('./api/user');
+const admin = require('./api/admin');
 const session = require('koa-session2');
 
 const app = new Koa();
@@ -21,6 +22,7 @@ app.use(session({
 }))
 
 router.use('/', user.routes(), user.allowedMethods());
+router.use('/admin', admin.routes(), admin.allowedMethods());
 
 app.use(router.routes()).use(router.allowedMethods());
 

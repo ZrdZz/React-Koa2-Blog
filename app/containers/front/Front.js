@@ -31,7 +31,7 @@ class Front extends Component{
   	  	    </Switch>
           </div>
           <div className={style.logorreg}>
-            {this.props.userInfo.userId ? <Logined userInfo={this.props.userInfo} /> :
+            {this.props.userInfo.userId ? <Logined userInfo={this.props.userInfo} history={this.props.history}/> :
                                           <Logorreg login={this.props.login} register={this.props.register}/>
             }
           </div>

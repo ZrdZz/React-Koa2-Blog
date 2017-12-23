@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "antd": "^3.0.1",
+    "axios": "^0.17.1",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.3.0",

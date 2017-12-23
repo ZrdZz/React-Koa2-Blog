@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {notification} from 'antd';
 import {actions} from '../reducers/index';
+import NotFound from '../components/notFound/NotFound';
 
 class Main extends Component{
   constructor(props){
@@ -34,7 +35,8 @@ class Main extends Component{
       <Router>
         <div>
           <Switch>
-            <Route path="/admin" component={Admin} />
+            <Route path='/404' component={NotFound}/>
+            <Route path="/admin" render={(props) => <Admin {...props} userInfo={this.props.userInfo}/>} />
             <Route render={(props) => <Front {...props} userInfo={this.props.userInfo}/>} />
           </Switch>
         </div>
