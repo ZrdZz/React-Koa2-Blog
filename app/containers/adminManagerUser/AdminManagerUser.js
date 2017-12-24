@@ -3,24 +3,21 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {actions} from '../../reducers/adminManagerUser';
 import {Table, Pagination} from 'antd';
+import style from './style.css'
 
 const columns = [{
 	title: '姓名',
 	dataIndex: 'username',
-	key: 'name',
 	render: text => <a href="#">{text}</a>
 },{
 	title: 'ID',
 	dataIndex: '_id',
-	key: 'id'
 },{
 	title: '密码',
 	dataIndex: 'password',
-	key: 'password'
 },{
 	title: '身份',
 	dataIndex: 'type',
-	key: 'address'
 }]
 
 class AdminManagerUser extends Component{
@@ -32,10 +29,10 @@ class AdminManagerUser extends Component{
 		return(
 			<div>
 				<h3>用户管理</h3>
-				<Table columns={columns} dataSource={this.props.list} pagination={false} />
+				<Table className={style.table} columns={columns} dataSource={this.props.list} pagination={false} />
 				<Pagination current = {this.props.pageNum} total = {this.props.total} onChange = {(pageNum) => {
 					this.props.get_all_users(pageNum)
-				}} />
+				}} className={style.pagination}/>
 			</div>
 		)
 	}

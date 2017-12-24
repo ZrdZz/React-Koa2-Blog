@@ -18,11 +18,11 @@ class Admin extends Component{
         <div>
           {
             this.props.userInfo.userType === 'admin' ?
-              <div>
-                <div>
-                  <AdminMenu />
+              <div className={style.container}>
+                <div className={style.adminMenu}>
+                  <AdminMenu history={this.props.history}/>
                 </div>
-                <div>
+                <div className={style.adminContent}>
                   <Switch>
                     <Route path={`${url}/managerUser`} component={AdminManagerUser}/>
                   </Switch>
