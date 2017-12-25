@@ -5,7 +5,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Router = require('koa-router');
 const body = require('koa-bodyparser');
-const user = require('./api/user');
+const main = require('./api/main');
 const admin = require('./api/admin');
 const session = require('koa-session2');
 
@@ -21,7 +21,7 @@ app.use(session({
 	maxAge: 1000 * 60 * 60
 }))
 
-router.use('/', user.routes(), user.allowedMethods());
+router.use('/', main.routes(), main.allowedMethods());
 router.use('/admin', admin.routes(), admin.allowedMethods());
 
 app.use(router.routes()).use(router.allowedMethods());

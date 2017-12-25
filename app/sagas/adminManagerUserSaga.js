@@ -1,7 +1,7 @@
 import {take, put, call} from 'redux-saga/effects';
 import {get} from '../fetch/fetch';
-import {actionsTypes as managerUserActionsTypes} from '../reducers/adminManagerUser';
 import {actionsTypes} from '../reducers/index';
+import {actionsTypes as managerUserActionsTypes} from '../reducers/adminManagerUser';
 
 export function* watch_get_all_users(){
 	while(true){

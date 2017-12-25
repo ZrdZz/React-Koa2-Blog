@@ -4,7 +4,7 @@ const {responseClient} = require('../util');
 
 const user = new Router();
 
-user.post('user/login', async(ctx) => {
+user.post('/login', async(ctx) => {
 	let {username, password} = ctx.request.body;
     if (!username) {
         responseClient(ctx, 400, 2, '用户名不可为空');
@@ -41,7 +41,7 @@ user.post('user/login', async(ctx) => {
 
 })
 
-user.post('user/register', async(ctx) => {
+user.post('/register', async(ctx) => {
     let {username, password, rePassword} = ctx.request.body;
     
     if (!username) {
@@ -58,42 +58,64 @@ user.post('user/register', async(ctx) => {
     }   
 
     try{
-        await User.findOne({username}, function(err, doc){
-            if(err){
-                responseClient(ctx);
-            }
+        // await User.findOne({username}, function(err, doc){
+        //     if(err){
+        //         responseClient(ctx);
+        //     }
 
-            if(doc){
-                responseClient(ctx, 200, 1, '用户名已存在');
-                return;  
-            }else{
-                //保存到数据库
-                let user = new User({
+        //     if(doc){
+        //         responseClient(ctx, 200, 1, '用户名已存在');
+        //         return;  
+        //     }else{
+        //         //保存到数据库
+        //         let user = new User({
+        //             username: username,
+        //             password: password,
+        //             type: 'user'
+        //         });
+
+        //         user.save(function(err, doc){
+        //             if(err){
+        //                 console.log(err);
+        //             }
+        //             if(doc){
+        //                 let data = {};
+        //                 data.username = doc.username;
+        //                 data.userType = doc.type;
+        //                 data.userId = doc._id;
+        //                 responseClient(ctx, 200, 0, '注册成功', data);
+        //                 return;
+        //             }
+        //         });   
+        //     }
+        // })
+
+        let doc = await User.findOne({username})
+        if(doc){
+            responseClient(ctx, 200, 1, '用户名已存在');
+            return
+        }else{
+            let user = new User({
                     username: username,
                     password: password,
                     type: 'user'
                 });
 
-                user.save(function(err, doc){
-                    if(err){
-                        console.log(err);
-                    }
-                    if(doc){
-                        let data = {};
-                        data.username = doc.username;
-                        data.userType = doc.type;
-                        data.userId = doc._id;
-                        responseClient(ctx, 200, 0, '注册成功', data);
-                    }
-                });   
-            }
-        })
+            let newUser = await user.save();
+            let data = {};
+            data.username = newUser.username;
+            data.userType = newUser.type;
+            data.userId = newUser._id;
+            responseClient(ctx, 200, 0, '注册成功', data);
+            return;
+        }
     }catch(e){
         responseClient(ctx);
     }
+
 })
 
-user.get('user/userInfo', async(ctx) => {  
+user.get('/userInfo', async(ctx) => {  
     if(ctx.session.userInfo){
         responseClient(ctx, 200, 0, '已登录', ctx.session.userInfo);
     }else{
