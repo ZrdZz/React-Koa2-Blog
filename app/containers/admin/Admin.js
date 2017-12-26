@@ -21,7 +21,7 @@ class Admin extends Component{
             this.props.userInfo.userType === 'admin' ?
               <div className={style.container}>
                 <div className={style.adminMenu}>
-                  <AdminMenu history={this.props.history}/>
+                  <AdminMenu history={this.props.history} />
                 </div>
                 <div className={style.adminContent}>
                   <Switch>

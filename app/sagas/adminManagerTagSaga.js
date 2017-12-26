@@ -40,7 +40,6 @@ export function* watchAddTag(){
 	while(true){
 		let req = yield take(managerTagActionsTypes.ADD_TAG);
 		let res = yield call(addTag, req.name);
-		console.log(res)
 		if(res.code === 0){
 			yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 1});
 			yield put({type:managerTagActionsTypes.GET_ALL_TAGS});
@@ -71,7 +70,8 @@ export function* watchDeleteTag(){
 		let req = yield take(managerTagActionsTypes.DELETE_TAG);
 		let res = yield call(deleteTag, req.name);
 		if(res.code === 0){
-			yield put({type: actionsTypes.SET_MESSAGE, data: res.data});
+			yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 1});
+			yield put({type:managerTagActionsTypes.GET_ALL_TAGS});
 		}else if(res.message === '身份信息已过期,请重新登录'){
 			yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 1});
 			setTimeout(function(){
@@ -88,7 +88,7 @@ export function* deleteTag(name){
 	try{
 		return yield call(post, '/admin/tag/deleteTag', {name});
 	}catch(err){
-		yield put({type: actionsTypes.SET_MESSAGE, msgContent: '网络请求错误'}, msgType: 0);
+		yield put({type: actionsTypes.SET_MESSAGE, msgContent: '网络请求错误', msgType: 0});
 	}finally{
 		yield put({type: actionsTypes.FETCH_END});
 	}

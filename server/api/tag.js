@@ -27,28 +27,31 @@ tag.post('/addTag', async(ctx) => {
 	// 	}
 	// })
 
-	const isExist = await Tag.findOne({name});
+	try{
+		let tag = await Tag.findOne({name});
 
-	if(isExist){
-		responseClient(ctx, 200, 1, '该标签已存在');
-	}else{
-		let newTag = new Tag({name});
-		const doc = await newTag.save();
-		responseClient(ctx, 200, 0, '添加成功', doc);
+		if(tag){
+			responseClient(ctx, 200, 1, '该标签已存在');
+		}else{
+			let newTag = new Tag({name});
+			let doc = await newTag.save();
+			responseClient(ctx, 200, 0, '添加成功', doc);
+		}
+	}catch(err){
+		responseClient(ctx);
 	}
 })
 
 tag.post('/deleteTag', async(ctx) => {
 	let {name} = ctx.request.body;
-	await Tag.remove({name}, function(err, doc){
-		if(err){
-			responseClient(ctx);
-		}
-
-		if(doc){
+	try{
+		let delTag = await Tag.remove({name});
+		if(delTag){
 			responseClient(ctx, 200, 0, '删除成功');
 		}
-	})
+	}catch(err){
+		responseClient(ctx);
+	}
 })
 
 module.exports = tag

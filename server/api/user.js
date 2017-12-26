@@ -90,8 +90,8 @@ user.post('/register', async(ctx) => {
         //     }
         // })
 
-        let doc = await User.findOne({username})
-        if(doc){
+        let isRegister = await User.findOne({username})
+        if(isRegister){
             responseClient(ctx, 200, 1, '用户名已存在');
             return
         }else{

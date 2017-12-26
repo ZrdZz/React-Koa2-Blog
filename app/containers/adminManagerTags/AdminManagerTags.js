@@ -27,7 +27,11 @@ class AdminManagerTags extends Component{
   }
 
   handleInputConfirm = () => {
-    this.props.addTag(this.state.inputValue);
+    let inputValue = this.state.inputValue;
+    let tags = this.state.tags;
+    if (inputValue && tags.indexOf(inputValue) === -1) {
+      this.props.addTag(inputValue);
+    }
     this.setState({
     	inputVisible: false,
     	inputValue: ''

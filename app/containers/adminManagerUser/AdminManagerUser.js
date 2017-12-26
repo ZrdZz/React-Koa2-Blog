@@ -57,7 +57,6 @@ function mapDispatchToProps(dispatch){
 
 function mapStateToProps(state){
 	let {list, pageNum, total} = state.admin.userReducers;
-	console.log(state)
 	return{
 		pageNum,
 		list,

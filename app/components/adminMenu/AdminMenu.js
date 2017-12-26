@@ -19,7 +19,7 @@ class AdminMenu extends Component{
 		return(
 			<div style={{width: 256}} className={style.menu}>
 				<Menu theme="dark" onClick={({key}) => {
-					this.props.history.push(`admin${key}`)
+					this.props.history.push(`/admin${key}`);  //路径前一定要加斜杠
 				}}>
 					{
 						menus.map((item, index) => 
