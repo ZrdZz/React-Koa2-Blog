@@ -2,6 +2,7 @@ import {fork} from 'redux-saga/effects';
 import {watchLogin, watchRegister, userAuth} from './logOrRegSaga';
 import {watch_get_all_users} from './adminManagerUserSaga';
 import {watch_get_all_tags, watchAddTag, watchDeleteTag} from './adminManagerTagSaga';
+import {watchSaveArticle} from './adminNewArticleSaga';
 
 export default function* rootSaga(){
 	yield fork(watchLogin);
@@ -11,4 +12,5 @@ export default function* rootSaga(){
 	yield fork(watch_get_all_tags);
 	yield fork(watchAddTag);
 	yield fork(watchDeleteTag);
+	yield fork(watchSaveArticle);
 }

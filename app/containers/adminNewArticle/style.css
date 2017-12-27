@@ -1,0 +1,18 @@
+.mainContainer{
+	margin-top: 10px;
+}
+
+.title{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.btnContainer{
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 10px;
+}
+
+.select{
+	width: 100%;
+}

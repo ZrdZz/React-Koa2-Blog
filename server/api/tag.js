@@ -31,14 +31,14 @@ tag.post('/addTag', async(ctx) => {
 		let tag = await Tag.findOne({name});
 
 		if(tag){
-			responseClient(ctx, 200, 1, '该标签已存在');
+			return responseClient(ctx, 200, 1, '该标签已存在');
 		}else{
 			let newTag = new Tag({name});
 			let doc = await newTag.save();
-			responseClient(ctx, 200, 0, '添加成功', doc);
+			return responseClient(ctx, 200, 0, '添加成功', doc);
 		}
 	}catch(err){
-		responseClient(ctx);
+		return responseClient(ctx);
 	}
 })
 
@@ -47,10 +47,10 @@ tag.post('/deleteTag', async(ctx) => {
 	try{
 		let delTag = await Tag.remove({name});
 		if(delTag){
-			responseClient(ctx, 200, 0, '删除成功');
+			return responseClient(ctx, 200, 0, '删除成功');
 		}
 	}catch(err){
-		responseClient(ctx);
+		return responseClient(ctx);
 	}
 })
 

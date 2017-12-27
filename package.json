@@ -48,6 +48,7 @@
     "koa-session-minimal": "^3.0.4",
     "koa-session2": "^2.2.5",
     "koa2-connect-history-api-fallback": "0.0.6",
+    "moment": "^2.20.1",
     "mongoose": "^4.13.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"

@@ -7,15 +7,12 @@ const main = new Router();
 main.use('user', user.routes(), user.allowedMethods());
 
 main.get('getAllTags', async(ctx) => {
-	await tag.find(function(err, doc){
-		if(err){
-			responseClient(ctx);
-		}
-
-		if(doc){
-			responseClient(ctx, 200, 0, '请求成功', doc);
-		}
-	})
+	let tags = await tag.find();
+	if(tags){
+		responseClient(ctx, 200, 0, '请求成功', tags);
+	}else{
+		responseClient(ctx);
+	}
 })
 
 module.exports = main

@@ -38,7 +38,7 @@ class AdminManagerTags extends Component{
     })
   }
 
-  	saveInputRef = input => this.input = input
+  saveInputRef = input => this.input = input
 
 	render() {
     	const { inputVisible, inputValue } = this.state;
@@ -61,7 +61,7 @@ class AdminManagerTags extends Component{
             			ref={this.saveInputRef}
             			type="text"
             			size="small"
-            			style={{ width: 78 }}
+            			style={{ width: 108 }}
             			value={inputValue}
             			onChange={this.handleInputChange}
             			onBlur={this.handleInputConfirm}

@@ -4,6 +4,7 @@ import NotFound from '../../components/notFound/NotFound';
 import AdminMenu from '../../components/adminMenu/AdminMenu';
 import AdminManagerUser from '../adminManagerUser/AdminManagerUser';
 import AdminManagerTags from '../adminManagerTags/AdminManagerTags';
+import AdminNewArticle from '../adminNewArticle/AdminNewArticle';
 import {actions} from '../../reducers/adminManagerUser';
 import style from './style.css';
 
@@ -27,6 +28,7 @@ class Admin extends Component{
                   <Switch>
                     <Route path={`${url}/managerUser`} component={AdminManagerUser}/>
                     <Route path={`${url}/managerTags`} component={AdminManagerTags}/>
+                    <Route path={`${url}/newArticle`} component={AdminNewArticle}/>
                   </Switch>
                 </div>
               </div> :
