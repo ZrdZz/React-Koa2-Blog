@@ -1,20 +1,40 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {Input, Select, Button} from 'antd';
+import {Input, Select, Button, Modal} from 'antd';
 import {actions} from '../../reducers/adminNewArticle';
 import {actions as tagsActions} from '../../reducers/adminManagerTags';
 import style from './style.css';
 import moment from 'moment';
+import Markdown from 'react-markdown';
+
+
 
 class AdminNewArticle extends Component{
 	constructor(props){
 		super(props);
+		this.state={
+			visible: false
+		}
 		this.titleOnChange = this.titleOnChange.bind(this);
 		this.contentOnChange = this.contentOnChange.bind(this);
 		this.tagsOnChange = this.tagsOnChange.bind(this);
 		this.save = this.save.bind(this);
 		this.publish = this.publish.bind(this);
+		this.handleOk = this.handleOk.bind(this);
+		this.preView = this.preView.bind(this);
+	}
+
+	handleOk(e){
+		this.setState({
+			visible: false
+		})
+	}
+
+	preView(){
+		this.setState({
+			visible: true
+		})
 	}
 
 	titleOnChange(e){
@@ -70,8 +90,19 @@ class AdminNewArticle extends Component{
 				<div className={style.btnContainer}>
 					<Button type="primary" style={{marginLeft: '10px'}} onClick={this.publish}>发布</Button>
 					<Button type="primary" style={{marginLeft: '10px'}} onClick={this.save}>保存</Button>
-					<Button type="primary" style={{marginLeft: '10px'}}>预览</Button>
+					<Button type="primary" style={{marginLeft: '10px'}} onClick={this.preView}>预览</Button>
 				</div>
+				<Modal 
+					title="文章预览"
+					visible={this.state.visible}
+					onOk={this.handleOk}
+					onCancel={this.handleOk}
+					width={'900px'}
+				>
+                    <div>
+                        <Markdown source={this.props.content} />
+                    </div>
+				</Modal>
 			</div>
 		)
 	}

@@ -23,8 +23,13 @@ article.post('/addArticle', async(ctx) => {
 	});
 
 	let article = await newArticle.save();
+	
 	if(article){
-		responseClient(ctx, 200, 0, '保存成功', article);
+		if(isPublish === 'true'){   //这里isPublish被转换为字符串
+			responseClient(ctx, 200, 0, '发布成功', article);
+		}else{
+			responseClient(ctx, 200, 0, '保存成功', article);
+		}
 	}else{
 		responseClient(ctx);
 	}
