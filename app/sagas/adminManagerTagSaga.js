@@ -28,7 +28,7 @@ export function* watch_get_all_tags(){
 export function* getAllTags(){
 	yield put({type: actionsTypes.FETCH_START});
 	try{
-		return yield call(get, 'getAllTags');
+		return yield call(get, '/getAllTags');
 	}catch(err){
 		yield put({type: actionsTypes.SET_MESSAHE, msgContent: '网络请求错误'}, msgType: 0);
 	}finally{

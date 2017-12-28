@@ -9,5 +9,5 @@ module.exports = new mongoose.Schema({
     coverImg: String,         //封面图片
     author: String,
     tags: Array,
-    isPublish: Boolean         //是否发布
+    isPublish: String         //是否发布
 });

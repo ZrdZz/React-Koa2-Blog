@@ -55,7 +55,7 @@ class AdminNewArticle extends Component{
         articleData.content = this.props.content;
         articleData.tags = this.props.tags;
         articleData.time =  moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
-        articleData.isPublish = true;
+        articleData.isPublish = '已发布';
         this.props.saveArticle(articleData);
 	}
 
@@ -65,7 +65,7 @@ class AdminNewArticle extends Component{
         articleData.content = this.props.content;
         articleData.tags = this.props.tags;
         articleData.time =  moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
-        articleData.isPublish = false;
+        articleData.isPublish = '草稿';
         this.props.saveArticle(articleData);
 	}
 

@@ -26,7 +26,7 @@ export function* watch_get_all_users(){
 export function* fetch_users(pageNum){
 	yield put({type: actionsTypes.FETCH_START});
 	try{
-		return yield call(get, `/admin/getUsers/?pageNum=${pageNum}`);
+		return yield call(get, `/admin/getUsers?pageNum=${pageNum}`);
 	}catch(err){
 		yield put({type: actionsTypes.SET_MESSAGE, msgContent: "网络请求错误", msgType: 0})
 	}finally{

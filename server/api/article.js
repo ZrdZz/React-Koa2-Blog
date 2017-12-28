@@ -25,7 +25,7 @@ article.post('/addArticle', async(ctx) => {
 	let article = await newArticle.save();
 	
 	if(article){
-		if(isPublish === 'true'){   //这里isPublish被转换为字符串
+		if(isPublish === '已发布'){   //这里isPublish被转换为字符串
 			responseClient(ctx, 200, 0, '发布成功', article);
 		}else{
 			responseClient(ctx, 200, 0, '保存成功', article);
