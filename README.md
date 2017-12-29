@@ -452,11 +452,23 @@ export function newArticleReducers(state = initState, action){
 	    return{
 		...state, tags: action.tags
 	    }
+	case actionsTypes.SET_ID:
+	    return{
+		...state, id: action.id
+	    }
         default:
 	    return state;
 	}
 }
 ```
+
+### 编辑文章
+
+点击编辑按钮,页面会定位到发布文章的页面
+```
+<Button type="primary" onClick={() => {this.props.edit_article(record._id); this.props.history.push('/admin/newArticle')}}>编辑</Button>
+```
+
 
 
 
