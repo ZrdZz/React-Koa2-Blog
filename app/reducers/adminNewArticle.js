@@ -1,14 +1,16 @@
 const initState = {
 	title: '',
 	content: '',
-	tags: []
+	tags: [],
+	id: ''
 };
 
 export const actionsTypes = {
 	UPDATE_TITLE: 'UPDATE_TITLE',
 	UPDATE_CONTENT: 'UPDATE_CONTENT',
 	UPDATE_TAGS: 'UPDATE_TAGS',
-	SAVE_ARTICLE: 'SAVE_ARTICLE'
+	SAVE_ARTICLE: 'SAVE_ARTICLE',
+	SET_ID: 'SET_ID'
 };
 
 export const actions = {
@@ -51,6 +53,10 @@ export function newArticleReducers(state = initState, action){
 		case actionsTypes.UPDATE_TAGS:
 			return{
 				...state, tags: action.tags
+			}
+		case actionsTypes.SET_ID:
+			return{
+				...state, id: action.id
 			}
 		default:
 			return state;

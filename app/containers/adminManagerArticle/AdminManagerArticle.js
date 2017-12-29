@@ -1,35 +1,9 @@
 import React, {Component} from 'react';
-import {Table, Divider, Pagination} from 'antd';
+import {Table, Divider, Pagination, Button} from 'antd';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {actions} from '../../reducers/adminManagerArticle';
 import style from './style.css'
-
-const columns = [{
-	title: 'Title',
-	dataIndex: 'title'
-}, {
-	title: 'Author',
-	dataIndex: 'author'
-}, {
-	title: 'time',
-	dataIndex: 'time'
-}, {
-	title: 'isPublish',
-	dataIndex: 'isPublish'
-}, {
-	title: 'Action',
-	key: 'action',
-	render: () => (
-		<span>
-			<a href="#">编辑</a>
-			<Divider type="vertical" />
-			<a href="#">删除</a>
-			<Divider type="vertical" />
-			<a href="#">查看</a>
-		</span>
-	)
-}]
 
 class AdminManagerArticle extends Component{
 	constructor(props){
@@ -37,6 +11,34 @@ class AdminManagerArticle extends Component{
 	}
 
 	render(){
+		const columns = [{
+			title: 'Title',
+			dataIndex: 'title'
+		}, {
+			title: 'ID',
+			dataIndex: '_id'
+		}, {
+			title: 'Author',
+			dataIndex: 'author'
+		}, {
+			title: 'time',
+			dataIndex: 'time'
+		}, {
+			title: 'isPublish',
+			dataIndex: 'isPublish'
+		}, {
+			title: 'Action',
+			key: 'action',
+			render: (text, record) => (
+				<span>
+					<Button type="primary" onClick={() => {this.props.edit_article(record._id); this.props.history.push('/admin/newArticle')}}>编辑</Button>
+					<Divider type="vertical" />
+					<Button type="primary">删除</Button>
+					<Divider type="vertical" />
+					<Button type="primary">查看</Button>
+				</span>
+			)
+		}]
 		return(
 			<div>
 				<h3>文章管理</h3>
@@ -55,7 +57,8 @@ class AdminManagerArticle extends Component{
 
 function mapDispatchToProps(dispatch){
 	return{
-		get_all_articles: bindActionCreators(actions.get_all_articles, dispatch)
+		get_all_articles: bindActionCreators(actions.get_all_articles, dispatch),
+		edit_article: bindActionCreators(actions.edit_article, dispatch)
 	}
 }
 

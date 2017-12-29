@@ -28,10 +28,10 @@ main.get('getAllArticles', async(ctx) => {
 
 	if(tag){
 		responseData.total = await Article.count({tags: {$all: [tag]}});
-		responseData.articlesList = await Article.find({tags: {$all: [tag]}}).skip(skip).limit(5);
+		responseData.articlesList = await Article.find({tags: {$all: [tag]}}).sort({_id: -1}).skip(skip).limit(5);
 	}else{
 		responseData.total = await Article.count();
-		responseData.articlesList = await Article.find().skip(skip).limit(5);
+		responseData.articlesList = await Article.find().sort({_id: -1}).skip(skip).limit(5);
 	}
 
 	if(responseData.articlesList){

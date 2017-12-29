@@ -6,7 +6,8 @@ const initState = {
 
 export const actionsTypes = {
 	GET_ALL_ARTICLES: 'GET_ALL_ARTICLES',
-	RESOLVE_GET_ALL_ARTICLES: 'RESOLVE_GET_ALL_ARTICLES'
+	RESOLVE_GET_ALL_ARTICLES: 'RESOLVE_GET_ALL_ARTICLES',
+	EDIT_ARTICLE: 'EDIT_ARTICLE'
 };
 
 export const actions = {
@@ -14,6 +15,12 @@ export const actions = {
 		return{
 			type: actionsTypes.GET_ALL_ARTICLES,
 			pageNum: pageNum
+		}
+	},
+	edit_article: function(id){
+		return{
+			type: actionsTypes.EDIT_ARTICLE,
+			id
 		}
 	}
 };

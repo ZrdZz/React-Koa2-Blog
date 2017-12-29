@@ -36,7 +36,8 @@ class Main extends Component{
         <div>
           <Switch>
             <Route path='/404' component={NotFound}/>
-            <Route path="/admin" render={(props) => <Admin {...props} userInfo={this.props.userInfo}/>} />
+            //使用component={},默认会把history、location、match传递给组件
+            <Route path="/admin" render={(props) => <Admin {...props} userInfo={this.props.userInfo}/>} /> 
             <Route render={(props) => <Front {...props} userInfo={this.props.userInfo}/>} />
           </Switch>
         </div>

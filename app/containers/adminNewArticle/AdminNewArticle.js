@@ -49,14 +49,17 @@ class AdminNewArticle extends Component{
 		this.props.updateTags(value); //注意这里传值
 	}
 
+	//第一次发布或保存文章时,没有id,但是也要取出来传递给查询字符串,因为编辑文章也要用这个方法,并且需要id,
 	publish(){
 		let articleData = {};
         articleData.title = this.props.title;
         articleData.content = this.props.content;
         articleData.tags = this.props.tags;
+        articleData.id = this.props.id;
         articleData.time =  moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
         articleData.isPublish = '已发布';
         this.props.saveArticle(articleData);
+        console.log(articleData.id)
 	}
 
 	save(){
@@ -64,6 +67,7 @@ class AdminNewArticle extends Component{
         articleData.title = this.props.title;
         articleData.content = this.props.content;
         articleData.tags = this.props.tags;
+        articleData.id = this.props.id;
         articleData.time =  moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
         articleData.isPublish = '草稿';
         this.props.saveArticle(articleData);
@@ -123,9 +127,9 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state){
-	let {title, content, tags} = state.admin.newArticleReducers,
+	let {title, content, tags, id} = state.admin.newArticleReducers,
 		allTags = state.admin.tagReducers;
-	return {title, content, tags, allTags}
+	return {title, content, tags, allTags, id}
 }
 
 AdminNewArticle = connect(mapStateToProps, mapDispatchToProps)(AdminNewArticle)

@@ -34,7 +34,7 @@ export function* watchSaveArticle(){
 export function* saveArticle(data){
 	yield put({type: actionsTypes.FETCH_START});
 	try{
-		return yield call(post, '/admin/article/addArticle', data);
+		return yield call(post, `/admin/article/addArticle?id=${data.id}`, data);
 	}catch(err){
 		yield put({type: actionsTypes.SET_MESSAGE, msgContent: '网络请求错误', msgType: '0'});
 	}finally{
