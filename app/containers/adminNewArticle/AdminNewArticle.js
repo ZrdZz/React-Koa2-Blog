@@ -59,7 +59,6 @@ class AdminNewArticle extends Component{
         articleData.time =  moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
         articleData.isPublish = '已发布';
         this.props.saveArticle(articleData);
-        console.log(articleData.id)
 	}
 
 	save(){
