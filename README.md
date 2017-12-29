@@ -321,30 +321,34 @@ article.post('/addArticle', async(ctx) => {
 	coverImg = `/${Math.round(Math.random() * 9 + 1)}.jpg`,
 	viewCounts = 0,
 	commentsCounts = 0;
+    //id只在编辑文章的时候回传过来,第一次发布或保存时不会传过来
+    if(id){
+	const article = await Article.update({_id: id}, {title, content, tags,isPublish, time});
+    }else{
+	const newArticle = new Article({
+				title,
+				content,
+				tags,
+				time,
+				isPublish,
+				author,
+				coverImg,
+				viewCounts,
+				commentsCounts
+			});
 
-    let newArticle = new Article({
-	title,
-	content,
-	tags,
-	time,
-	isPublish,
-	author,
-	coverImg,
-	viewCounts,
-	commentsCounts
-    });
+	const article = await newArticle.save();
+    }
 
-    let article = await newArticle.save();
-	
     if(article){
-	if(isPublish === 'true'){   //这里isPublish被转换为字符串
-		responseClient(ctx, 200, 0, '发布成功', article);
+	if(isPublish === '已发布'){   //这里isPublish被转换为字符串
+	     responseClient(ctx, 200, 0, '发布成功', article);
 	}else{
-		responseClient(ctx, 200, 0, '保存成功', article);
+	     responseClient(ctx, 200, 0, '保存成功', article);
 	}
     }else{
 	responseClient(ctx);
-    }
+    }	
 })
 ```
 
@@ -381,7 +385,7 @@ export function* watchSaveArticle(){
 export function* saveArticle(data){
 	yield put({type: actionsTypes.FETCH_START});
 	try{
-		return yield call(post, '/admin/article/addArticle', data);
+		return yield call(post, `/admin/article/addArticle?id=${data.id}`, data);
 	}catch(err){
 		yield put({type: actionsTypes.SET_MESSAGE, msgContent: '网络请求错误', msgType: '0'});
 	}finally{
@@ -395,14 +399,16 @@ state设计(adminNewArticle.js)
 const initState = {
     title: '',
     content: '',
-    tags: []
+    tags: [],
+    id: ''
 };
 
 export const actionsTypes = {
     UPDATE_TITLE: 'UPDATE_TITLE',
     UPDATE_CONTENT: 'UPDATE_CONTENT',
     UPDATE_TAGS: 'UPDATE_TAGS',
-    SAVE_ARTICLE: 'SAVE_ARTICLE'
+    SAVE_ARTICLE: 'SAVE_ARTICLE',
+    SET_ID: 'SET_ID'
 };
 
 export const actions = {
