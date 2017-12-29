@@ -7,7 +7,8 @@ const initState = {
 export const actionsTypes = {
 	GET_ALL_ARTICLES: 'GET_ALL_ARTICLES',
 	RESOLVE_GET_ALL_ARTICLES: 'RESOLVE_GET_ALL_ARTICLES',
-	EDIT_ARTICLE: 'EDIT_ARTICLE'
+	EDIT_ARTICLE: 'EDIT_ARTICLE',
+	DELETE_ARTICLE: 'DELETE_ARTICLE'
 };
 
 export const actions = {
@@ -20,6 +21,12 @@ export const actions = {
 	edit_article: function(id){
 		return{
 			type: actionsTypes.EDIT_ARTICLE,
+			id
+		}
+	},
+	delete_article: function(id){
+		return{
+			type: actionsTypes.DELETE_ARTICLE,
 			id
 		}
 	}

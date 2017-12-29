@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {Menu, Icon} from 'antd';
+import {Menu, Icon, Button} from 'antd';
 import style from './style.css';
 
 const menus = [
-    {url: '/', name: '首页', iconType: 'home'},
-    {url: '/managerUser', name: '用户管理', iconType: 'usergroup-delete'},
-    {url: '/newArticle', name: '发文', iconType: 'file-text'},
-    {url: '/managerTags', name: '标签管理', iconType: 'tags-o'},
-    {url: '/managerArticle', name: '文章管理', iconType: 'edit'},
+    {url: '/admin', name: '首页', iconType: 'home'},
+    {url: '/admin/managerUser', name: '用户管理', iconType: 'usergroup-delete'},
+    {url: '/admin/newArticle', name: '发文', iconType: 'file-text'},
+    {url: '/admin/managerTags', name: '标签管理', iconType: 'tags-o'},
+    {url: '/admin/managerArticle', name: '文章管理', iconType: 'edit'},
+    {url: '/', name: '博客首页', iconType: 'close-circle-o'}
 ];
 
 class AdminMenu extends Component{
@@ -19,7 +20,7 @@ class AdminMenu extends Component{
 		return(
 			<div style={{width: 256}} className={style.menu}>
 				<Menu theme="dark" onClick={({key}) => {
-					this.props.history.push(`/admin${key}`);  //路径前一定要加斜杠
+					this.props.history.push(`${key}`);  //路径前一定要加斜杠
 				}}>
 					{
 						menus.map((item, index) => 

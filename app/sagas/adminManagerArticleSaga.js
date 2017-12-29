@@ -1,4 +1,4 @@
-import {put, take, call} from 'redux-saga/effects';
+import {put, take, call, select} from 'redux-saga/effects';
 import {get, post} from '../fetch/fetch';
 import {actionsTypes} from '../reducers/index';
 import {actionsTypes as managerArticleActionsTypes} from '../reducers/adminManagerArticle';
@@ -65,8 +65,38 @@ export function* editArticle(id){
 	try{
 		return yield call(get, `/admin/article/editArticle?id=${id}`);
 	}catch(err){
-		yield put({type: actionsTypes.SET_MESSAGE, msgContent: '网络请求错误', msgType: 0})
+		yield put({type: actionsTypes.SET_MESSAGE, msgContent: '网络请求错误', msgType: 0});
 	}finally{
 		yield put({type: actionsTypes.FETCH_END});
 	}	
+}
+
+export function* watchDeleteArticle(){
+	while(true){
+		let req = yield take(managerArticleActionsTypes.DELETE_ARTICLE);
+		let res = yield call(deleteArticle, req.id);
+		const pageNum = yield select(state=>state.admin.articleReducers.pageNum);
+		if(res.code === 0){
+			yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 1});
+			yield put({type: managerArticleActionsTypes.GET_ALL_ARTICLES, pageNum});
+		}else if (res.message === '身份信息已过期，请重新登录') {
+                yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 0});
+                setTimeout(function () {
+                    location.replace('/');
+                }, 1000);
+        }else{
+			yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 0});
+		}
+	}
+}
+
+export function* deleteArticle(id){
+	yield put({type: actionsTypes.FETCH_START});
+	try{
+		return yield call(post, `/admin/article/deleteArticle?id=${id}`);
+	}catch(err){
+		yield put({type: actionsTypes.SET_MESSAGE, msgContent: '网络请求错误', msgType: 0});
+	}finally{
+		yield put({type: actionsTypes.FETCH_END});
+	}
 }

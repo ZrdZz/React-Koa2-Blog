@@ -33,9 +33,7 @@ class AdminManagerArticle extends Component{
 				<span>
 					<Button type="primary" onClick={() => {this.props.edit_article(record._id); this.props.history.push('/admin/newArticle')}}>编辑</Button>
 					<Divider type="vertical" />
-					<Button type="primary">删除</Button>
-					<Divider type="vertical" />
-					<Button type="primary">查看</Button>
+					<Button type="primary" onClick={() => {this.props.delete_article(record._id)}}>删除</Button>
 				</span>
 			)
 		}]
@@ -58,7 +56,8 @@ class AdminManagerArticle extends Component{
 function mapDispatchToProps(dispatch){
 	return{
 		get_all_articles: bindActionCreators(actions.get_all_articles, dispatch),
-		edit_article: bindActionCreators(actions.edit_article, dispatch)
+		edit_article: bindActionCreators(actions.edit_article, dispatch),
+		delete_article: bindActionCreators(actions.delete_article, dispatch)
 	}
 }
 
