@@ -11,47 +11,7 @@ webpack中的一些路径像`publicPath`、webpack-dev-server中的一些路径�
 
                                     
 
-### 内容标签管理
-
-进入标签管理页面以后向后台请求数据
-
-adminManagerTagSaga.js
-```
-export function* watch_get_all_tags(){
-    while(true){
-	yield take(managerTagActionsTypes.GET_ALL_TAGS);
-	let res = yield call(getAllTags);
-	if(res.code === 0){
-		let tagsTypeArr = [];
-		for(let i = 0, len = res.data.length; i < len; i++){
-			tagsTypeArr.push(res.data[i].name);
-		}
-	yield put({type: managerTagActionsTypes.SET_TAGS, data: tagsTypeArr});
-	}else if(res.message === '身份信息已过期,请重新登录'){
-		yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 1});
-		setTimeout(function(){
-			location.replace('/')
-		}, 1000)
-	}else{
-		yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 1});
-	}
-    }
-}
-
-export function* getAllTags(){
-    yield put({type: actionsTypes.FETCH_START});
-    try{
-	return yield call(get, 'getAllTags');
-    }catch(err){
-	yield put({type: actionsTypes.SET_MESSAHE, msgContent: '网络请求错误'}, msgType: 0);
-    }finally{
-	yield put({type: actionsTypes.FETCH_END});
-    }
-}
-```
-后端代码很简单,从数据库中取出数据传回saga就好了。
-
-前端代码主要使用了`Tag`组件,通过`connect`取出添加删除标签的方法。添加标签时,按下回车或标签框失去焦点时会触发添加标签的`dispatch`,其余类似。	
+	
 
 ### 发布保存文章
 
