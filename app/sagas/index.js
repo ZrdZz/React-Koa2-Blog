@@ -4,6 +4,7 @@ import {watch_get_all_users} from './adminManagerUserSaga';
 import {watch_get_all_tags, watchAddTag, watchDeleteTag} from './adminManagerTagSaga';
 import {watchSaveArticle} from './adminNewArticleSaga';
 import {watchGetAllArticles, watchEditArticle, watchDeleteArticle} from './adminManagerArticleSaga';
+import {watchGetTagArticles, watchGetArticleDetail} from './frontSaga';
 
 export default function* rootSaga(){
 	yield fork(watchLogin);
@@ -17,4 +18,6 @@ export default function* rootSaga(){
 	yield fork(watchGetAllArticles);
 	yield fork(watchEditArticle);
 	yield fork(watchDeleteArticle);
+	yield fork(watchGetTagArticles);
+	yield fork(watchGetArticleDetail);
 }

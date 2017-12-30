@@ -73,6 +73,7 @@ class AdminNewArticle extends Component{
 	}
 
 	render(){
+		console.log(this.props.tags)
 		return(
 			<div>
 				<h2>发文</h2>

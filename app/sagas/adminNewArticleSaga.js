@@ -14,19 +14,21 @@ export function* watchSaveArticle(){
 			yield put({type: actionsTypes.SET_MESSAGE, msgContent: '文章分类不能为空!', msgType: 0});
 		}
 
-		let res = yield call(saveArticle, req.data);
-		if(res.code === 0){
-			yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 1});
-			setTimeout(function(){
-				location.replace('/admin/managerArticle');
-			}, 1000);
-		}else if(res.message === '身份信息已过期，请重新登录'){
-			yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 0});
-			setTimeout(function(){
-				location.replace('/');
-			}, 1000);
-		}else{
-			yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 0})
+		if(req.data.title && req.data.content && req.data.tags.length > 0){
+			let res = yield call(saveArticle, req.data);
+			if(res.code === 0){
+				yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 1});
+				setTimeout(function(){
+					location.replace('/admin/managerArticle');
+				}, 1000);
+			}else if(res.message === '身份信息已过期，请重新登录'){
+				yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 0});
+				setTimeout(function(){
+					location.replace('/');
+				}, 1000);
+			}else{
+				yield put({type: actionsTypes.SET_MESSAGE, msgContent: res.message, msgType: 0})
+			}
 		}
 	}
 }

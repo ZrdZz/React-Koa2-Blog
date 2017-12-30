@@ -10,6 +10,8 @@ article.post('/addArticle', async(ctx) => {
 		coverImg = `/${Math.round(Math.random() * 9 + 1)}.jpg`,
 		viewCounts = 0,
 		commentsCounts = 0;
+	tags = tags.split(',');
+
 	if(id){
 		const article = await Article.update({_id: id}, {title, content, tags,isPublish, time});
 	}else{
@@ -55,7 +57,6 @@ article.post('/deleteArticle', async(ctx) => {
 	let id = ctx.query.id;
 	if(id){
 		let deleteArticle = await Article.remove({_id: id});
-		console.log(deleteArticle)
 		responseClient(ctx, 200, 0, '删除成功');
 	}
 })

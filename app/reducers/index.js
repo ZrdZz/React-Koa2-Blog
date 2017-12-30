@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import admin from './admin';
+import {tagArticleReducers as front} from './front'
 
 const initialState = {
 	isFetching: false,  
@@ -78,5 +79,6 @@ export function reducer(state=initialState, action){
 
 export default combineReducers({
 	globalState: reducer,
-	admin
+	admin,
+	front
 })
