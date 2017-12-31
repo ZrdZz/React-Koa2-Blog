@@ -1,5 +1,7 @@
 import React, {Component} from 'React';
 import {connect} from 'react-redux';
+import Markdown from 'react-markdown';
+import style from './style.css';
 
 class Detail extends Component{
 	constructor(props){
@@ -9,8 +11,16 @@ class Detail extends Component{
 	render(){
 		return(
 			<div>
-				<h1>{this.props.detail.title}</h1>
-				<h1>{this.props.detail.content}</h1>
+				<div className={style.article}>
+					<h1>{this.props.detail.title}</h1>
+					<div className={style.msg}>
+						<span style={{paddingRight: '5px'}}>{this.props.detail.author}</span>
+						<span>{this.props.detail.time}</span>
+					</div>
+					<div className={style.content}>
+						<Markdown source={this.props.detail.content} />
+					</div>
+				</div>
 			</div>
 		)
 	}

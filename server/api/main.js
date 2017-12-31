@@ -46,6 +46,8 @@ main.get('getArticleDetail', async(ctx) => {
 	let id = ctx.query.id;
 	if(id){
 		let detail = await Article.findOne({_id: id});
+		let viewCounts = detail.viewCounts + 1;
+		await Article.update({_id: id}, {viewCounts});
 		if(detail){
 			responseClient(ctx, 200, 0, 'success', detail);
 		}else{

@@ -33,7 +33,7 @@ class Home extends Component{
                         <div>                          
                           时间:{item.time}
                         </div>
-                        <span>                   
+                        <span style={{paddingRight: '10px'}}>                   
                           阅读数:{item.viewCounts}
                         </span>
                         <span>                        

@@ -1,0 +1,11 @@
+.article{
+	width: 500px;
+	background: white;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.content{
+	text-align: left;
+	margin: 20px 0 20px 20px;
+}
