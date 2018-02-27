@@ -26,7 +26,7 @@ router.use('/admin', admin.routes(), admin.allowedMethods());
 
 app.use(router.routes()).use(router.allowedMethods());
 
-mongoose.Promise = global.Promise;  //不加这个会多个警告Mongoose: mpromise (mongoose's default promise library) is deprecated
+mongoose.Promise = global.Promise;  
 mongoose.connect('mongodb://localhost/blog', function(err){
 	if(err){
 		console.log('数据库连接失败');
